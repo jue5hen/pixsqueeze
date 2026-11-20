@@ -1,0 +1,175 @@
+/* ───────────────────────────────────────────────────────────────────────
+ * 统一设计 token · 四款软件共用（03/04/05/06 各一份，逐字节一致）
+ * 事实源：桌面《四款软件_统一视觉与动效方向建议_2026-11-13.md》
+ * 只放语义层：色板、字阶、间距、控件尺寸、圆角、焦点、动效。
+ * 组件与布局仍留在各自 styles.css；旧变量名由各应用 :root 别名映射到这里。
+ * 改动后必须同步四份副本，qa/check-design-tokens.mjs 会校验一致性。
+ * ─────────────────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+
+  /* —— 色板：浅色 —— */
+  --color-bg-canvas: #f5f6f8;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #eef0f4;
+  --color-text-primary: #20252d;
+  --color-text-secondary: #545f70;
+  --color-text-muted: #5f6b7c;
+  --color-accent: #4f5fe7;
+  --color-accent-hover: #4352d0;
+  --color-accent-pressed: #3745b8;
+  --color-text-on-accent: #ffffff;
+  --color-selection-bg: #eceeff;
+  --color-selection-text: #3544bc;
+  --color-border-subtle: #dde2ea;
+  --color-border-control: #7d8999;
+  --color-status-success: #126438;
+  --color-status-warning: #7a4300;
+  --color-status-danger: #a61b1b;
+
+  /* —— 派生：状态底 / 悬停底 / 遮罩 / 滚动条（不在色板表内，按色板混合得到） —— */
+  --color-surface-hover: #eef0f4;
+  --color-surface-pressed: #e4e8ef;
+  --color-accent-soft: #eceeff;
+  --color-success-soft: #e8f4ed;
+  --color-warning-soft: #fdf3e6;
+  --color-danger-soft: #fbecec;
+  --color-danger-border: #e3b7b7;
+  --color-backdrop: rgba(15, 18, 24, 0.4);
+  --color-surface-overlay: rgba(255, 255, 255, 0.94);
+  --color-scrollbar-thumb: #c7cdd8;
+  --color-scrollbar-thumb-hover: #aeb6c4;
+  --shadow-panel: 0 8px 24px rgba(16, 24, 40, 0.1);
+  --shadow-menu: 0 12px 32px rgba(16, 24, 40, 0.14);
+
+  /* —— 字体与字阶 —— */
+  --font-family-sans: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --font-family-display: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI",
+    "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+  --font-family-mono: "Cascadia Mono", "Consolas", "Microsoft YaHei UI", monospace;
+
+  --font-titlebar-size: 13px;
+  --font-titlebar-line: 20px;
+  --font-titlebar-weight: 600;
+  --font-h1-size: 20px;
+  --font-h1-line: 28px;
+  --font-h1-weight: 600;
+  --font-h2-size: 15px;
+  --font-h2-line: 22px;
+  --font-h2-weight: 600;
+  --font-body-size: 14px;
+  --font-body-line: 20px;
+  --font-dense-size: 13px;
+  --font-dense-line: 20px;
+  --font-aux-size: 12px;
+  --font-aux-line: 18px;
+  --font-figure-size: 24px;
+  --font-figure-line: 32px;
+  --font-figure-weight: 600;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* —— 间距、控件、圆角、图标 —— */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --control-height: 36px;
+  --control-height-compact: 32px;
+  --radius-input: 8px;
+  --radius-panel: 10px;
+  --radius-menu: 12px;
+  --radius-pill: 999px;
+
+  --icon-size-16: 16px;
+  --icon-size-20: 20px;
+  --icon-size-24: 24px;
+
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  --titlebar-height: 36px;
+  --toolbar-height: 48px;
+  --statusbar-height: 28px;
+  --sidebar-width-min: 240px;
+  --sidebar-width-max: 280px;
+
+  /* —— 动效：时长 / 缓动 / 位移 —— */
+  --motion-instant: 0ms;
+  --motion-fast: 80ms;
+  --motion-micro: 120ms;
+  --motion-standard: 180ms;
+  --motion-emphasis: 240ms;
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-shift: 8px;
+  --motion-shift-sm: 4px;
+}
+
+/* 深色：同一语义，换一组成对色值（对比度按文档表核算）。 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-bg-canvas: #15181e;
+    --color-bg-surface: #1e232c;
+    --color-bg-subtle: #252c36;
+    --color-text-primary: #f2f4f8;
+    --color-text-secondary: #b3bdcc;
+    --color-text-muted: #96a2b4;
+    --color-accent: #a9b2ff;
+    --color-accent-hover: #bcc3ff;
+    --color-accent-pressed: #929dee;
+    --color-text-on-accent: #171b35;
+    --color-selection-bg: #2d355d;
+    --color-selection-text: #ccd2ff;
+    --color-border-subtle: #343e4d;
+    --color-border-control: #7a879b;
+    --color-status-success: #84ddaa;
+    --color-status-warning: #ffd08a;
+    --color-status-danger: #ffb4ab;
+
+    --color-surface-hover: #252c36;
+    --color-surface-pressed: #2c3441;
+    --color-accent-soft: #2d355d;
+    --color-success-soft: #1d2f26;
+    --color-warning-soft: #35291b;
+    --color-danger-soft: #382226;
+    --color-danger-border: #5a2a2c;
+    --color-backdrop: rgba(3, 5, 9, 0.6);
+    --color-surface-overlay: rgba(30, 35, 44, 0.94);
+    --color-scrollbar-thumb: #3d4757;
+    --color-scrollbar-thumb-hover: #4b5668;
+    --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-menu: 0 12px 32px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* 减少动效：保留信息与操作，只压缩时长/位移。 */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 1ms;
+    --motion-micro: 1ms;
+    --motion-standard: 1ms;
+    --motion-emphasis: 1ms;
+    --motion-shift: 0px;
+    --motion-shift-sm: 0px;
+  }
+}
+
+/* 基础可访问性：键盘焦点环与文本选区跟随语义色。 */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}

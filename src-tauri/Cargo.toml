@@ -1,0 +1,39 @@
+[package]
+name = "pix-squeeze"
+version = "1.0.0"
+description = "PixSqueeze - 图片批量压缩工具"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "gif", "bmp", "tiff"] }
+base64 = "0.22"
+webp = "0.3"
+imagequant = "4"
+png = "0.17"
+crc32fast = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+flate2 = "1"
+gif = "0.14"
+tiff = "0.11"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Security",
+  "Win32_System_Threading",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+# 便携 exe 体积/启动优化：单 codegen unit + thin LTO + 去符号（PS-A-039）
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

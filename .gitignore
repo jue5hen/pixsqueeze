@@ -1,0 +1,11 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+*.log
+*.tsbuildinfo
+
+# 运行期用户数据
+settings.json
+settings.json.bak
+错误日志.txt
